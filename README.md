@@ -21,7 +21,7 @@ Connex is a beautiful and lightweight contact manager built with Flutter and SQL
 <img src="screenshots/connex_sc_1.png" width="300">
 
 ### 2
-<img src="screenshots/addconnex_sc_2.png" width="300">
+<img src="screenshots/connex_sc_2.png" width="300">
 
 ### 3
 <img src="screenshots/connex_sc_3.png" width="300">
