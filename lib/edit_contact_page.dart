@@ -1,59 +1,65 @@
 import 'package:flutter/material.dart';
-import 'package:connex/Data/database_helper.dart';
 import 'package:connex/Data/contact_model.dart';
+import 'package:connex/Data/database_helper.dart';
 
-class AddContacts extends StatefulWidget {
-  const AddContacts({super.key});
+class EditContactPage extends StatefulWidget {
+  final Contact contact;
+
+  const EditContactPage({super.key, required this.contact});
 
   @override
-  State<AddContacts> createState() => _AddContactsState();
+  State<EditContactPage> createState() => _EditContactPageState();
 }
 
-class _AddContactsState extends State<AddContacts> {
+class _EditContactPageState extends State<EditContactPage> {
   final _formKey = GlobalKey<FormState>();
 
-  final TextEditingController nameController = TextEditingController();
-  final TextEditingController numberController = TextEditingController();
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController notesController = TextEditingController();
+  late TextEditingController nameController;
+  late TextEditingController numberController;
+  late TextEditingController emailController;
+  late TextEditingController notesController;
 
   final FocusNode nameFocus = FocusNode();
 
-  bool isFormFilled = false;
+  bool isFormChanged = false;
 
   @override
   void initState() {
     super.initState();
+    nameController = TextEditingController(text: widget.contact.name);
+    numberController = TextEditingController(text: widget.contact.number);
+    emailController = TextEditingController(text: widget.contact.email);
+    notesController = TextEditingController(text: widget.contact.notes);
+
     nameFocus.requestFocus();
 
-    nameController.addListener(_checkFormFilled);
-    numberController.addListener(_checkFormFilled);
-    emailController.addListener(_checkFormFilled);
-    notesController.addListener(_checkFormFilled);
+    nameController.addListener(_checkFormChanged);
+    numberController.addListener(_checkFormChanged);
+    emailController.addListener(_checkFormChanged);
+    notesController.addListener(_checkFormChanged);
   }
 
-  void _checkFormFilled() {
+  void _checkFormChanged() {
     setState(() {
-      isFormFilled = nameController.text.trim().isNotEmpty ||
-          numberController.text.trim().isNotEmpty ||
-          emailController.text.trim().isNotEmpty ||
-          notesController.text.trim().isNotEmpty;
+      isFormChanged = nameController.text.trim() != widget.contact.name ||
+          numberController.text.trim() != widget.contact.number ||
+          emailController.text.trim() != (widget.contact.email ?? '') ||
+          notesController.text.trim() != (widget.contact.notes ?? '');
     });
   }
 
-  void _saveContact() async {
+  void _updateContact() async {
     if (_formKey.currentState!.validate()) {
-      final contact = Contact(
+      final updatedContact = widget.contact.copyWith(
         name: nameController.text.trim(),
         number: numberController.text.trim(),
         email: emailController.text.trim(),
         notes: notesController.text.trim(),
       );
-      await DatabaseHelper().insertContact(contact);
+      await DatabaseHelper().updateContact(updatedContact);
       Navigator.pop(context, true);
     }
   }
-
 
   @override
   void dispose() {
@@ -124,12 +130,12 @@ class _AddContactsState extends State<AddContacts> {
                     top: 40,
                     right: 15,
                     child: GestureDetector(
-                      onTap: isFormFilled ? _saveContact : null,
+                      onTap: isFormChanged ? _updateContact : null,
                       child: Text(
                         "Save",
                         style: TextStyle(
                           fontSize: 23,
-                          color: isFormFilled ? Colors.blue : Colors.grey,
+                          color: isFormChanged ? Colors.blue : Colors.grey,
                         ),
                       ),
                     ),
