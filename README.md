@@ -1,16 +1,36 @@
-# connex
+# 📱 Connex — Flutter Contact Manager App
 
-A new Flutter project.
+Connex is a beautiful and lightweight contact manager built with Flutter and SQLite. It allows users to add, edit, delete, and favorite contacts with a clean and intuitive UI.
 
-## Getting Started
+---
 
-This project is a starting point for a Flutter application.
+## ✨ Features
 
-A few resources to get you started if this is your first Flutter project:
+- ✅ Add new contacts with name, phone number, email, and notes  
+- ✏️ Edit existing contact details  
+- 🌟 Mark contacts as favorites  (In -progress)
+- 📋 View detailed contact pages  
+- 🗑️ Delete contacts
+- 🔄 Data persistence using SQLite (via `sqflite`)  
+- 📱 Smooth navigation using `BottomNavigationBar`  
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+---
+## 📸 Screenshots
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### 1
+<img src="screenshots/connex_sc_1.png" width="300">
+
+### 2
+<img src="screenshots/addconnex_sc_2.png" width="300">
+
+### 3
+<img src="screenshots/connex_sc_3.png" width="300">
+
+### 4
+<img src="screenshots/connex_sc_4.png" width="300">
+
+### 5
+<img src="screenshots/connex_sc_5.png" width="300">
+
+
+
